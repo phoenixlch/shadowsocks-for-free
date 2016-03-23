@@ -8,6 +8,8 @@ import urllib
 import os
 import sys
 import re
+import socket
+
 
 class FreeSS:
 
@@ -37,13 +39,19 @@ class FreeSS:
         pat_port = re.compile(r'端口：(\d+)')
         pat_passwd = re.compile(r'密.*码：(\d+)')
         pat_encrypt = re.compile(r'加密方式：([\w-]+)')
+        patterns = [pat_ip, pat_port, pat_passwd, pat_encrypt]
         html = self.html
-        ip = pat_ip.search(html)
-        port = pat_port.search(html)
-        passwd = pat_passwd.search(html)
-        encrypt = pat_encrypt.search(html)
-        for i in (ip, port, passwd, encrypt):
-            yield i.group(1) if i else i
+        pos = 1 #0 us 1 jp
+        for i in map(lambda p:p.findall(html)[pos], patterns):
+            yield i
+        # ip = pat_ip.search(html)
+        # port = pat_port.search(html)
+        # passwd = pat_passwd.search(html)
+        # encrypt = pat_encrypt.search(html)
+        # for i in (ip, port, passwd, encrypt):
+        #     yield i.group(1) if i else i
+
+
 
 if __name__ == '__main__':
     params = FreeSS().get_params()
