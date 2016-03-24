@@ -21,7 +21,6 @@ class ShadowsocksServer:
     ]
     def __init__(self):
         self._launched = False
-        self._act = self._handle_act()
         for url in self.urls:
             resp = urllib.urlopen(url)
             if resp.code == 200:
@@ -81,7 +80,7 @@ class ShadowsocksServer:
             launch_cmd = 'sslocal -s %s -p %s -k %s -m %s -l %s -t %s'
         else:
             launch_cmd = 'sslocal -s %s -p %s -k %s -m %s -l %s -t %s -d %s'
-            to_extend_params.append(self._act)
+            to_extend_params.append(self._handle_act())
 
         _params.extend(to_extend_params)
         os.system(launch_cmd % tuple(_params))
