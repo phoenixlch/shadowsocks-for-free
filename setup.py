@@ -18,7 +18,7 @@ description = "FreeSS",
 name = "FreeSS",
 options = options,
 zipfile=None,
-console=['winss.py']
+console=['freess.py']
 #data_files= [('images', ['bing.ico'])],
 # windows=[{"script":"test.pyw",
 #           "icon_resources": [(1,"hello.ico"),(42,"bing.ico")]}]  

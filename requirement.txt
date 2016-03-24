@@ -1,1 +1,2 @@
 shadowsocks==2.8.2
+pysocks==1.5.6

@@ -15,9 +15,9 @@ $ pip install -r requirement.txt <br>
 
 ###3. Launch a local server
 #### unix-like os
-  $ sudo python unixss.py start/restart/stop
+  $ sudo python freess.py start/restart
 #### windows
-  1. $ python winss.py
-  2. build binary via double-click the 'setup_for_winss.py' file 
+  1. $ python freess.py
+  2. build binary via double-click the 'setup.py' file
      and you will get an executable located in diretory named "dist".
   
