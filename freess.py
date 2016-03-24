@@ -28,12 +28,15 @@ class ShadowsocksServer:
                 self.html = resp.read()
                 break
 
-    def get_params(self):
-        _params = list(self._ext_params())
+    def _check_params(self, params):
+        _params = tuple(params)
         if all(_params):
             return _params
         else:
-            raise Exception('exists invalid parameter!')
+            raise Exception('{} exists invalid parameter!'.format(_params))
+
+    def iter_params(self):
+        return self._ext_params()
 
     def _ext_params(self):
         pat_ip = re.compile(r'服务器地址：([\w\.]+)')
@@ -46,12 +49,14 @@ class ShadowsocksServer:
             yield i
 
     def _check_sock5_proxy(self, addr, port):
-
+        print 'test sock5 proxy...'
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, addr=addr, port=port)
         socket.socket = socks.socksocket
         resp = urllib.urlopen(url="http://www.google.com")
         if resp.code == 200:
+            print 'test succeeded!'
             return 0
+        print 'test failed'
         return 1
 
     def _handle_act(self):
@@ -84,8 +89,8 @@ class ShadowsocksServer:
 
     def serve(self):
         servername = self.__class__.__name__
-        for params in self.get_params():
-            self.execute(params=params)
+        for params in self.iter_params():
+            self.execute(params=self._check_params(params))
             signal = self._check_sock5_proxy('localhost', self.local_port)
             if signal == 1:
                 continue
