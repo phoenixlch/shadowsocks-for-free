@@ -21,6 +21,7 @@ class ShadowsocksServer:
     ]
     def __init__(self):
         self._launched = False
+        self._handle_act()
         for url in self.urls:
             resp = urllib.urlopen(url)
             if resp.code == 200:
