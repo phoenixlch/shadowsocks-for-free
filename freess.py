@@ -60,7 +60,7 @@ class ShadowsocksServer:
         return 1
 
     def _handle_act(self):
-
+        if sys.platform.startswith('win'): return
         if self._launched is False:
             try:
                 act = sys.argv[1]
